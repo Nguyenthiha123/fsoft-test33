@@ -6,7 +6,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 const form = {
-    margin: "auto",
+    marginLeft: "25px",
 
 
 };

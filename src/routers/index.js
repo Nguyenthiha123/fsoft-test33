@@ -10,20 +10,8 @@ const Routers = props => {
         <div>
             <Router>
                 <Switch>
-                    <Route path="/register" exact>
-                        <Register />
-                    </Route>
-                    <Route path="/check" exact>
-                        <Check />
-                    </Route>
                     <Route path="/" exact>
                         <Report />
-                    </Route>
-                    <Route path="/voice" exact>
-                        <Voice />
-                    </Route>
-                    <Route path="/checkVoice" exact>
-                        <CheckVoice />
                     </Route>
                 </Switch>
             </Router>
