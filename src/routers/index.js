@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Register from '../component/Register';
 import Check from '../component/Check';
 import Report from '../component/Report';
-import DangNhap from '../component/DangNhap';
 import Voice from '../component/Voice';
 import CheckVoice from '../component/CheckVoice';
 const Routers = props => {
@@ -17,9 +16,6 @@ const Routers = props => {
                     <Route path="/check" exact>
                         <Check />
                     </Route>
-                    {/* <Route path="/" exact>
-                        <DangNhap />
-                    </Route> */}
                     <Route path="/" exact>
                         <Report />
                     </Route>

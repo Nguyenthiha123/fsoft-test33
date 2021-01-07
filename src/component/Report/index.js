@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const form = {
     margin: "auto",
@@ -30,9 +32,8 @@ const table = {
     top: "100px"
 };
 const input = {
-    width: "270px",
+    width: "200px",
     position: "relative",
-    left: "25px"
 }
 const label = {
     float: "left"
@@ -69,7 +70,7 @@ const Report = props => {
     //     getReport();
     // }, []);
 
-
+    const dataExport = [];
     const search = async (e) => {
         console.log(e);
         const dateFrom = new Date(e.from);
@@ -89,7 +90,43 @@ const Report = props => {
                 'apiKey': token
             },
         })
+        // this.dataExport = data.data.Data;
+        // exportToCSV(data.data.Data, 'test nhe');
+        // console.log(dataExport);
         setData(data.data.Data)
+    }
+
+    const exportToCSV = (dataExport) => {
+        console.log(dataExport);
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const dateNow = new Date();
+
+        //create fileName
+        const dateFile = dateNow.getTime();
+        const fileName = 'Report-' + dateFile;
+
+        //biến đổi data theo đúng yêu cầu
+        const custs = []
+        dataExport.forEach(element => {
+            custs.push({
+                'ID': element.id,
+                'Mã': element.idNumber,
+                'Tên': element.name,
+                'So sánh': element.idMatched,
+                'Ngày': element.createdDate,
+                'Giờ': element.createdTime,
+                'Xác nhận': element.confirm
+            });
+        });
+
+
+        //Create File
+        const ws = XLSX.utils.json_to_sheet(custs);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, fileName + fileExtension);
     }
 
     return (
@@ -98,55 +135,52 @@ const Report = props => {
                 <h1 style={h1} className="text-dark">Report</h1>
                 <div style={align} className="form-row align-items-center">
 
-                    <div style={{ 'margin-left': '340px' }}>
-                        <div className="form-group">
-                            <label style={label} htmlFor="formFile">Authen Key</label>
-                            <input style={input} name='key' type="text" className="form-control" ref={register} />
-                        </div>
-                    </div>
+                    <div className="" style={{ 'width': '900px', marginTop: '20px', 'display': 'flex', 'alignItems': 'flex-end', 'justifyContent': 'space-around' }}>
 
-                    <div className="row" style={{ 'margin-left': '120px', 'margin-top': '50px' }}>
-                        <div className="col-4">
-                            <div className="form-group">
-                                <label style={label} htmlFor="formFile">Form date</label>
-                                <input style={input} name='from' type="date" className="form-control" ref={register} />
-                            </div>
+                        <div className="form-group" style={{ textAlign: 'left' }}>
+                            <label htmlFor="formFile">Authen Key</label>
+                            <input name='key' type="text" className="form-control" ref={register} />
                         </div>
-                        <div className="col-4">
-                            <div className="form-group">
-                                <label style={label} htmlFor="formFile">To date</label>
-                                <input style={input} name='to' type="date" className="form-control" ref={register} />
-                            </div>
+
+                        <div className="form-group" style={{ textAlign: 'left' }}>
+                            <label htmlFor="formFile">Form date</label>
+                            <input name='from' style={input} type="date" className="form-control" ref={register} />
                         </div>
-                        <div className="col-1">
-                            <button type="submit" className="btn btn-dark mb-2">Search</button>
+
+                        <div className="form-group" style={{ textAlign: 'left' }}>
+                            <label htmlFor="formFile">To date</label>
+                            <input name='to' style={input} type="date" className="form-control" ref={register} />
                         </div>
+                        <button type="submit" className="btn btn-dark mb-3">Search</button>
+
+                        <button type="button" onClick={() => exportToCSV(reportData)} className="btn btn-dark mb-3">Export</button>
                     </div>
                 </div>
             </form>
-
 
             <table style={table} className="table">
                 <thead style={{ 'background-color': 'black', color: 'white' }} className="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Mã</th>
                         <th scope="col">Tên</th>
-                        <th scope="col">Số CMT</th>
                         <th scope="col">So sánh</th>
+                        <th scope="col">Ngày</th>
+                        <th scope="col">Giờ</th>
                         <th scope="col">Xác nhận</th>
-                        <th scope="col">Ngày tháng</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        reportData.map((el) => (
-                            <tr>
+                        reportData.map((el, index) => (
+                            <tr key={index}>
                                 <th scope="row">{el.id}</th>
-                                <td>{el.name}</td>
                                 <td>{el.idNumber}</td>
+                                <td>{el.name}</td>
                                 <td>{el.idMatched}</td>
-                                <td>{el.confirm}</td>
                                 <td>{el.createdDate}</td>
+                                <td>{el.createdTime}</td>
+                                <td>{el.confirm}</td>
                             </tr>
                         ))
                     }
