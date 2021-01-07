@@ -6,9 +6,10 @@ import Swal from 'sweetalert2'
 
 
 const form = {
-    padding: '30px',
-    position: 'relative',
-    left: '380px'
+    // padding: '30px',
+    // position: 'relative',
+    // left: '380px'
+    margin: 'auto'
 };
 const mb = {
     width: '500px'
@@ -58,7 +59,7 @@ const CheckVoice = props => {
         const res = dataCheck.data;
         if (res.ErrorCode === 0) {
             const data = res.Data;
-            console.log(data);  
+            console.log(data);
         }
         else {
             history.push('/checkvoice')
@@ -74,7 +75,7 @@ const CheckVoice = props => {
         <div className='container'>
 
 
-            
+
             <h1 className="text-success">Recognize Voice</h1>
             <form style={form} onSubmit={handleSubmit(onSubmit)}>
 

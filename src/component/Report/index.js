@@ -107,18 +107,21 @@ const Report = props => {
         const fileName = 'Report-' + dateFile;
 
         //biến đổi data theo đúng yêu cầu
-        const custs = []
-        dataExport.forEach(element => {
+        const custs = [];
+        for (let i = 0; i < dataExport.length; i++) {
+            const element = dataExport[i];
             custs.push({
-                'ID': element.id,
+                'SST': i + 1,
                 'Mã': element.idNumber,
                 'Tên': element.name,
-                'So sánh': element.idMatched,
                 'Ngày': element.createdDate,
                 'Giờ': element.createdTime,
+                'So sánh': element.idMatched,
                 'Xác nhận': element.confirm
+
             });
-        });
+        }
+
 
 
         //Create File
@@ -164,9 +167,9 @@ const Report = props => {
                         <th scope="col">ID</th>
                         <th scope="col">Mã</th>
                         <th scope="col">Tên</th>
-                        <th scope="col">So sánh</th>
                         <th scope="col">Ngày</th>
                         <th scope="col">Giờ</th>
+                        <th scope="col">So sánh</th>
                         <th scope="col">Xác nhận</th>
                     </tr>
                 </thead>
@@ -177,9 +180,9 @@ const Report = props => {
                                 <th scope="row">{el.id}</th>
                                 <td>{el.idNumber}</td>
                                 <td>{el.name}</td>
-                                <td>{el.idMatched}</td>
                                 <td>{el.createdDate}</td>
                                 <td>{el.createdTime}</td>
+                                <td>{el.idMatched}</td>
                                 <td>{el.confirm}</td>
                             </tr>
                         ))
