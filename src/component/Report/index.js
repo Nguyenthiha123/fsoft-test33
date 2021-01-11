@@ -90,7 +90,7 @@ const Report = props => {
                 'apiKey': token
             },
         })
-        // this.dataExport = data.data.Data;
+
         // exportToCSV(data.data.Data, 'test nhe');
         // console.log(dataExport);
         setData(data.data.Data)

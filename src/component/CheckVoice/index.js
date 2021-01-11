@@ -5,22 +5,17 @@ import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 
 
-const form = {
-    // padding: '30px',
-    // position: 'relative',
-    // left: '380px'
-    margin: 'auto'
-};
+
 const mb = {
-    width: '500px'
+    width: '500px',
+    margin: 'auto'
 };
 const label = {
     float: 'left'
 };
 const button = {
-    position: 'relative',
-    left: '-370px',
-    top: '30px'
+    margin: 'auto',
+
 };
 const table = {
     width: "900px",
@@ -33,8 +28,12 @@ const CheckVoice = props => {
     const history = useHistory()
     const { register, handleSubmit, watch, errors } = useForm();
     const users = [];
-    const [reportData, setData] = useState(users)
+    const [checkData, setData] = useState(users)
     const onSubmit = dataCheck => Check(dataCheck);
+
+
+
+
     const makeId = (length) => {
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -59,6 +58,7 @@ const CheckVoice = props => {
         const res = dataCheck.data;
         if (res.ErrorCode === 0) {
             const data = res.Data;
+            setData(data.ls_audio[0].result);
             console.log(data);
         }
         else {
@@ -69,16 +69,14 @@ const CheckVoice = props => {
                 'error'
             )
         }
-        console.log(dataCheck)
     }
     return (
         <div className='container'>
 
 
 
-            <h1 className="text-success">Recognize Voice</h1>
-            <form style={form} onSubmit={handleSubmit(onSubmit)}>
-
+            <h1 style={{ paddingBottom: '50px' }} className="text-success">Recognize Voice</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3" style={mb}>
                     <label style={label} htmlFor="formFile" className="form-label">Giọng nói</label>
                     <input name='audious1' ref={register({ required: true })} className="form-control" type="file" id="formFile" />
@@ -90,22 +88,28 @@ const CheckVoice = props => {
             </form>
 
             <table style={table} className="table">
-                <thead style={{ 'background-color': '#198754', color: 'white' }} className="thead-dark">
+                <thead style={{ 'background-color': '#28a745', color: 'white' }} >
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Tên</th>
+                        <th scope="col">Score</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>hà</td>
-                    </tr>
+                    {
+                        checkData.map((el, index) => (
+                            <tr key={index}>
+                                <th scope="row">{el.speaker_id}</th>
+                                <td>{el.name}</td>
+                                <td>{el.score}</td>
+
+                            </tr>
+                        ))
+                    }
+
                 </tbody>
             </table>
-
-
-
         </div>
     )
 }
