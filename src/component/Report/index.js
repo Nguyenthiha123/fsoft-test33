@@ -84,7 +84,7 @@ const Report = props => {
             to: unixTo + 86400
         }
         const token = e.key;
-        const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/recognizeHistory', dataPayload, {
+        const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/verifyHistory', dataPayload, {
             headers: {
                 'Content-Type': 'application/json',
                 'apiKey': token

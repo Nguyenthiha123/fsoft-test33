@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
@@ -43,7 +43,6 @@ const RecognizeHistory = props => {
     const onSubmit = data => search(data)
 
     // const onSubmit = valueFrom => console.log(valueFrom);
-    const history = useHistory()
 
     const dataExport = [];
     const search = async (e) => {
@@ -59,7 +58,7 @@ const RecognizeHistory = props => {
             to: unixTo + 86400
         }
         const token = e.key;
-        const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/verifyHistory', dataPayload, {
+        const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/recognizeHistory', dataPayload, {
             headers: {
                 'Content-Type': 'application/json',
                 'apiKey': token
@@ -96,8 +95,6 @@ const RecognizeHistory = props => {
 
             });
         }
-
-
 
         //Create File
         const ws = XLSX.utils.json_to_sheet(custs);
