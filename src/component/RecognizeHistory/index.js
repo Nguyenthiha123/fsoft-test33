@@ -7,8 +7,6 @@ import * as XLSX from 'xlsx';
 
 const form = {
     marginLeft: "25px",
-
-
 };
 const h1 = {
     "text-align": "center",
@@ -38,10 +36,7 @@ const input = {
 const label = {
     float: "left"
 }
-
-
-
-const Report = props => {
+const RecognizeHistory = props => {
     const { register, handleSubmit, watch, errors } = useForm();
     const users = [];
     const [reportData, setData] = useState(users)
@@ -49,26 +44,6 @@ const Report = props => {
 
     // const onSubmit = valueFrom => console.log(valueFrom);
     const history = useHistory()
-    // useEffect(() => {
-    //     const getReport = async () => {
-    //         try {
-    //             const dataPayload = {
-    //                 from: 0,
-    //                 to: 0
-    //             }
-    //             const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/verifyHistory', dataPayload, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //             })
-    //             // console.log(data.data.Data);
-    //             setData(data.data.Data)
-    //             // console.log(reportData);
-    //         } catch (error) {
-    //         }
-    //     }
-    //     getReport();
-    // }, []);
 
     const dataExport = [];
     const search = async (e) => {
@@ -84,7 +59,7 @@ const Report = props => {
             to: unixTo + 86400
         }
         const token = e.key;
-        const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/recognizeHistory', dataPayload, {
+        const data = await axios.post('https://ekyc-demo-api.trandata.io/api/v1/user/verifyHistory', dataPayload, {
             headers: {
                 'Content-Type': 'application/json',
                 'apiKey': token
@@ -135,7 +110,7 @@ const Report = props => {
     return (
         <div className="container">
             <form style={form} onSubmit={handleSubmit(onSubmit)}>
-                <h1 style={h1} className="text-dark">Report</h1>
+                <h1 style={h1} className="text-dark">Recognize History</h1>
                 <div style={align} className="form-row align-items-center">
 
                     <div className="" style={{ 'width': '900px', marginTop: '20px', 'display': 'flex', 'alignItems': 'flex-end', 'justifyContent': 'space-around' }}>
@@ -196,8 +171,8 @@ const Report = props => {
     )
 }
 
-Report.propTypes = {
+RecognizeHistory.propTypes = {
 
 }
 
-export default Report
+export default RecognizeHistory

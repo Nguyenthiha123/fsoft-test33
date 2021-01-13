@@ -42,6 +42,7 @@ const Voice = props => {
             Data.append('audios', e.audios3[0])
         }
 
+
         if (e.audios1[0] != null || undefined) {
             Data.append('text[]', e.text1)
         }
@@ -70,7 +71,7 @@ const Voice = props => {
     return (
         <div className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h1 style={{}} className="text-success">Register Voice</h1>
+                <h1 className="text-success">Register Voice</h1>
                 <div className="row">
                     <div className="col-6">
                         <div className="mb-3" style={mb}>

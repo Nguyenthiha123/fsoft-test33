@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 
-
-
 const mb = {
     width: '500px',
     margin: 'auto'
@@ -15,7 +13,6 @@ const label = {
 };
 const button = {
     margin: 'auto',
-
 };
 const table = {
     width: "900px",
@@ -30,9 +27,6 @@ const CheckVoice = props => {
     const users = [];
     const [checkData, setData] = useState(users)
     const onSubmit = dataCheck => Check(dataCheck);
-
-
-
 
     const makeId = (length) => {
         var result = '';
@@ -72,9 +66,6 @@ const CheckVoice = props => {
     }
     return (
         <div className='container'>
-
-
-
             <h1 style={{ paddingBottom: '50px' }} className="text-success">Recognize Voice</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3" style={mb}>
@@ -107,7 +98,6 @@ const CheckVoice = props => {
                             </tr>
                         ))
                     }
-
                 </tbody>
             </table>
         </div>
