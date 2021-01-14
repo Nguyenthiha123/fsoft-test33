@@ -31,19 +31,17 @@ const Check = props => {
     const addCheck = async (e) => {
         const Data = new FormData();
         Data.append('image', e.image[0]);
-        console.log(Data)
         const dataCheck = await axios.post('https://facedemo-api.dev.trandata.io/api/v1/facedemo/recognition', Data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
         })
         const res = dataCheck.data;
-        console.log(res)
 
         if (res.ErrorCode === 0) {
             const data = res.Data;
             setData(data);
-            console.log(data);
+            drawImage(data.box.x_min, data.box.y_min, data.box.x_max, data.box.y_max);
 
         } else {
             history.push('/check')
@@ -53,100 +51,61 @@ const Check = props => {
                 'error'
             )
         }
-        console.log(dataCheck)
     }
 
 
     //upload file ảnh
     const onChangePicture = e => {
         if (e.target.files[0]) {
-            console.log("picture: ", e.target.files);
             setPicture(e.target.files[0]);
-            console.log(e.target.files);
             const reader = new FileReader();
             reader.addEventListener("load", () => {
                 setImgData(reader.result);
             });
 
             reader.readAsDataURL(e.target.files[0]);
-            const img = document.getElementById("scream");
-            // console.log(img.width, img.height)
-
-
         }
     }
 
+    // ve anh truoc khi submit
     const handleImageLoad = (event) => {
         const { target } = event;
         let counter = 0;
+        //khi submit sẽ upload ảnh của hàm done
         const done = () => {
             // const imageHeight = target.clientHeight;
             // const imageWidth = target.clientWidth;
             const img = document.getElementById("scream");
             const imageHeight = img.height;
             const imageWidth = img.width;
-
-            console.log(`Height: ${imageHeight} (clientWidth: ${imageWidth})`);
-            drawIamge(imageHeight, imageWidth, img)
+            loadImage(imageHeight, imageWidth, img)
         };
-        const maybeDone = () => {
-            done();
-            // if (target.clientHeight) {
-            //     done();
-            // } else if (++counter < 3) {
-            //     requestAnimationFrame(maybeDone);
-            // } else {
-            //     console.log("Couldn't get height");
-            // }
-        };
-        maybeDone();
+        done();
     };
-    // canvas
-    // var imagePaper = new Image();
-    // imagePaper.onload = function () {
-    //     context.drawImage(imagePaper, 100, 20, 500, 500);
-    // };
-    // imagePaper.src = "";
 
-    const drawIamge = (imageHeight, imageWidth, img) => {
-        console.log('inittttttttttttttttttttt')
-        const x_min = 361;
-        const y_min = 444;
-        const x_max = 982;
-        const y_max = 1222;
+    //ve anh
+    const loadImage = (imageHeight, imageWidth, img) => {
         const c = document.getElementById("myCanvas");
         const ctx = c.getContext("2d");
         c.width = imageWidth;
         c.height = imageHeight;
         ctx.drawImage(img, 0, 0);
+    }
+
+    // ve anh sau khi co data
+    const drawImage = (x_min, y_min, x_max, y_max) => {
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
         ctx.beginPath();
         ctx.rect(x_min, y_min, x_max - x_min, y_max - y_min);
         ctx.lineWidth = 7;
         ctx.strokeStyle = 'black';
         ctx.stroke();
     }
-    window.onload = function () {
-        // console.log('inittttttttttttttttttttt')
-        // var x_min = 361;
-        // var y_min = 444;
-        // var x_max = 982;
-        // var y_max = 1222;
-        // var c = document.getElementById("myCanvas");
-        // var ctx = c.getContext("2d");
-        // var img = document.getElementById("scream");
-        // c.width = img.width;
-        // c.height = img.height;
-        // ctx.drawImage(img, 0, 0);
-        // ctx.beginPath();
-        // ctx.rect(x_min, y_min, x_max - x_min, y_max - y_min);
-        // ctx.lineWidth = 7;
-        // ctx.strokeStyle = 'black';
-        // ctx.stroke();
-    }
 
     return (
         <div className="container">
-            <h1 className="text-success">Recognize</h1>
+            <h1 className="text-dark">Recognize</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3" style={mb}>
 
@@ -164,10 +123,10 @@ const Check = props => {
                     <img id="scream" style={{ display: 'none' }} src={imgData} onLoad={handleImageLoad} />
                     <canvas style={{ width: '150px' }} id="myCanvas" />
                 </div>
-                <button style={button} type="submit" className="btn btn-success">Submit</button>
+                <button style={button} type="submit" className="btn btn-dark">Submit</button>
             </form>
             <table style={table} className="table">
-                <thead style={{ 'background-color': '#28a745', color: 'white' }} >
+                <thead style={{ 'background-color': 'black', color: 'white' }} >
                     <tr>
 
                         <th scope="col">Tên</th>

@@ -4,9 +4,6 @@ import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 const form = {
-    // padding: '30px',
-    // position: 'relative',
-    // left: '380px'
     margin: 'auto'
 };
 const mb = {
@@ -53,7 +50,7 @@ const Register = props => {
     return (
         <div className="container">
             <form style={form} onSubmit={handleSubmit(onSubmit)}>
-                <h1 style={{ margin: 'auto' }} className="text-success">Register</h1>
+                <h1 style={{ margin: 'auto' }} className="text-dark">Register</h1>
                 <div className="mb-3" style={mb}>
                     <label style={label} htmlFor="formFile" className="form-label">Hình ảnh<span style={span}>*</span></label>
                     <input name='image' ref={register({ required: true })} className="form-control" type="file" id="formFile" />
@@ -80,7 +77,7 @@ const Register = props => {
                     </small>
                 </div> */}
 
-                <button style={button} type="submit" className="btn btn-success">Submit</button>
+                <button style={button} type="submit" className="btn btn-dark">Submit</button>
             </form>
         </div>
     )

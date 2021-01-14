@@ -14,8 +14,8 @@ const Routers = props => {
                 <Switch>
                     {/* <Route path="/" exact>
                         <Register />
-                    </Route> */}
-                    {/* 
+                    </Route>
+
                     <Route path="/check" exact>
                         <Check />
                     </Route> */}
