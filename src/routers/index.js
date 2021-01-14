@@ -2,8 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Register from '../component/Register';
 import Check from '../component/Check';
-import Report from '../component/Report';
+import VerifyHistory from '../component/VerifyHistory';
 import RecognizeHistory from '../component/RecognizeHistory';
+import LayoutHistory from '../component/LayoutHistory';
 import Voice from '../component/Voice';
 import CheckVoice from '../component/CheckVoice';
 const Routers = props => {
@@ -13,15 +14,20 @@ const Routers = props => {
                 <Switch>
                     {/* <Route path="/" exact>
                         <Register />
-                    </Route>
+                    </Route> */}
+                    {/* 
                     <Route path="/check" exact>
                         <Check />
+                    </Route> */}
+
+                    {/* <Route path="/verifyHistory" exact>
+                        <VerifyHistory />
                     </Route>
-                    <Route path="/report" exact>
-                        <Report />
+                    <Route path="/recognizeHistory" exact>
+                        <RecognizeHistory />
                     </Route> */}
                     <Route path="/" exact>
-                        <RecognizeHistory />
+                        <LayoutHistory />
                     </Route>
 
                     {/*

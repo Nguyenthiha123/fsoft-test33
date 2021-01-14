@@ -4,15 +4,13 @@ import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 
-
-
 const mb = {
     width: '500px',
     margin: 'auto'
 };
 const button = {
     margin: 'auto',
-    marginTop: "125px"
+    marginTop: "15px"
 };
 const table = {
     width: "900px",
@@ -64,18 +62,45 @@ const Check = props => {
         if (e.target.files[0]) {
             console.log("picture: ", e.target.files);
             setPicture(e.target.files[0]);
-
+            console.log(e.target.files);
             const reader = new FileReader();
             reader.addEventListener("load", () => {
                 setImgData(reader.result);
             });
+
             reader.readAsDataURL(e.target.files[0]);
+            const img = document.getElementById("scream");
+            // console.log(img.width, img.height)
 
 
         }
     }
 
+    const handleImageLoad = (event) => {
+        const { target } = event;
+        let counter = 0;
+        const done = () => {
+            // const imageHeight = target.clientHeight;
+            // const imageWidth = target.clientWidth;
+            const img = document.getElementById("scream");
+            const imageHeight = img.height;
+            const imageWidth = img.width;
 
+            console.log(`Height: ${imageHeight} (clientWidth: ${imageWidth})`);
+            drawIamge(imageHeight, imageWidth, img)
+        };
+        const maybeDone = () => {
+            done();
+            // if (target.clientHeight) {
+            //     done();
+            // } else if (++counter < 3) {
+            //     requestAnimationFrame(maybeDone);
+            // } else {
+            //     console.log("Couldn't get height");
+            // }
+        };
+        maybeDone();
+    };
     // canvas
     // var imagePaper = new Image();
     // imagePaper.onload = function () {
@@ -83,22 +108,40 @@ const Check = props => {
     // };
     // imagePaper.src = "";
 
+    const drawIamge = (imageHeight, imageWidth, img) => {
+        console.log('inittttttttttttttttttttt')
+        const x_min = 361;
+        const y_min = 444;
+        const x_max = 982;
+        const y_max = 1222;
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        c.width = imageWidth;
+        c.height = imageHeight;
+        ctx.drawImage(img, 0, 0);
+        ctx.beginPath();
+        ctx.rect(x_min, y_min, x_max - x_min, y_max - y_min);
+        ctx.lineWidth = 7;
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+    }
     window.onload = function () {
-        var c = document.getElementById("myCanvas");
-        var ctx = c.getContext("2d");
-        var img = document.getElementById("scream");
-        ctx.drawImage(img, 20, 10);
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext('2d');
-
-        context.beginPath();
-        context.rect(35, 40, 130, 100);
-        // context.fillStyle = "hsl(0, 0%, 100%)";
-        // context.fill();
-        context.lineWidth = 1;
-        context.strokeStyle = 'black';
-        context.stroke();
-        context.restore();
+        // console.log('inittttttttttttttttttttt')
+        // var x_min = 361;
+        // var y_min = 444;
+        // var x_max = 982;
+        // var y_max = 1222;
+        // var c = document.getElementById("myCanvas");
+        // var ctx = c.getContext("2d");
+        // var img = document.getElementById("scream");
+        // c.width = img.width;
+        // c.height = img.height;
+        // ctx.drawImage(img, 0, 0);
+        // ctx.beginPath();
+        // ctx.rect(x_min, y_min, x_max - x_min, y_max - y_min);
+        // ctx.lineWidth = 7;
+        // ctx.strokeStyle = 'black';
+        // ctx.stroke();
     }
 
     return (
@@ -110,15 +153,17 @@ const Check = props => {
                     <label htmlFor="formFile" className="form-label">Hình ảnh</label>
                     <input ref="window" onChange={onChangePicture} name='image' ref={register({ required: true })} className="form-control" type="file" id="formFile" />
                     <div className="previewProfilePic" style={{ marginLeft: "90px" }}>
-                        <img id="scream" className="playerProfilePic_home_tile" style={{ marginTop: '18px', objectFit: 'cover', zIndex: '1', position: 'absolute' }} width={200} height={260} src={imgData} />
-                        <canvas id="myCanvas" style={{ position: 'relative', top: '30px', zIndex: '20' }} />
+                        {/* <img className="playerProfilePic_home_tile" style={{ marginTop: '18px', objectFit: 'cover' }} width={200} height={260} src={imgData} /> */}
                     </div>
 
                     <small className="form-text text-danger">
                         {errors.name && errors.name.type === "required" && <span>Vui lòng không để trống</span>}
                     </small>
                 </div>
-
+                <div >
+                    <img id="scream" style={{ display: 'none' }} src={imgData} onLoad={handleImageLoad} />
+                    <canvas style={{ width: '150px' }} id="myCanvas" />
+                </div>
                 <button style={button} type="submit" className="btn btn-success">Submit</button>
             </form>
             <table style={table} className="table">
@@ -142,6 +187,8 @@ const Check = props => {
                     }
                 </tbody>
             </table>
+
+
         </div>
     )
 }

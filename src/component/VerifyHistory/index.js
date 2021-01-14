@@ -7,8 +7,6 @@ import * as XLSX from 'xlsx';
 
 const form = {
     marginLeft: "25px",
-
-
 };
 const h1 = {
     "text-align": "center",
@@ -41,7 +39,7 @@ const label = {
 
 
 
-const Report = props => {
+const VerifyHistory = props => {
     const { register, handleSubmit, watch, errors } = useForm();
     const users = [];
     const [reportData, setData] = useState(users)
@@ -118,11 +116,8 @@ const Report = props => {
                 'Giờ': element.createdTime,
                 'So sánh': element.idMatched,
                 'Xác nhận': element.confirm
-
             });
         }
-
-
 
         //Create File
         const ws = XLSX.utils.json_to_sheet(custs);
@@ -135,7 +130,7 @@ const Report = props => {
     return (
         <div className="container">
             <form style={form} onSubmit={handleSubmit(onSubmit)}>
-                <h1 style={h1} className="text-dark">Report</h1>
+                <h1 style={h1} className="text-dark">Verify History</h1>
                 <div style={align} className="form-row align-items-center">
 
                     <div className="" style={{ 'width': '900px', marginTop: '20px', 'display': 'flex', 'alignItems': 'flex-end', 'justifyContent': 'space-around' }}>
@@ -196,8 +191,8 @@ const Report = props => {
     )
 }
 
-Report.propTypes = {
+VerifyHistory.propTypes = {
 
 }
 
-export default Report
+export default VerifyHistory
