@@ -31,9 +31,9 @@ const Routers = props => {
                     </Route>
 
 
-                    <Route path="/checkvoice" exact>
+                    {/* <Route path="/checkvoice" exact>
                         <CheckVoice />
-                    </Route>
+                    </Route> */}
                 </Switch>
             </Router>
         </div>
