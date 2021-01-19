@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 
@@ -20,10 +19,9 @@ const table = {
 };
 
 const Check = props => {
-    const history = useHistory()
     const { register, handleSubmit, watch, errors } = useForm();
     const users = [];
-    const [checkData, setData] = useState(users)
+    const [checkData, setData] = useState(users);
     const [picture, setPicture] = useState(null);
     const [imgData, setImgData] = useState(null);
     const onSubmit = dataCheck => addCheck(dataCheck);
@@ -37,22 +35,20 @@ const Check = props => {
             },
         })
         const res = dataCheck.data;
-
         if (res.ErrorCode === 0) {
             const data = res.Data;
-            setData(data);
-            drawImage(data.box.x_min, data.box.y_min, data.box.x_max, data.box.y_max);
+            setData(data.faces);
+            console.log(data);
+            drawImage(data.faces[0].box[0], data.faces[0].box[1], data.faces[0].box[2], data.faces[0].box[3]);
 
         } else {
-            history.push('/check')
             Swal.fire(
-                'Hinh anh khong chinh xac',
+                'The image is not correct',
                 'You clicked the button!',
                 'error'
             )
         }
     }
-
 
     //upload file ảnh
     const onChangePicture = e => {
@@ -62,7 +58,6 @@ const Check = props => {
             reader.addEventListener("load", () => {
                 setImgData(reader.result);
             });
-
             reader.readAsDataURL(e.target.files[0]);
         }
     }
@@ -109,7 +104,7 @@ const Check = props => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3" style={mb}>
 
-                    <label htmlFor="formFile" className="form-label">Hình ảnh</label>
+                    <label htmlFor="formFile" className="form-label">Images</label>
                     <input ref="window" onChange={onChangePicture} name='image' ref={register({ required: true })} className="form-control" type="file" id="formFile" />
                     <div className="previewProfilePic" style={{ marginLeft: "90px" }}>
                         {/* <img className="playerProfilePic_home_tile" style={{ marginTop: '18px', objectFit: 'cover' }} width={200} height={260} src={imgData} /> */}
@@ -128,21 +123,18 @@ const Check = props => {
             <table style={table} className="table">
                 <thead style={{ 'background-color': 'black', color: 'white' }} >
                     <tr>
-
-                        <th scope="col">Tên</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Similarity</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        <tr >
-
-                            <td>{checkData.name}</td>
-                            <td>{checkData.similarity}</td>
-
-                        </tr>
-
+                        checkData.map((el, index) => (
+                            <tr key={index}>
+                                <td>{el.name}</td>
+                                <td>{el.similarity}</td>
+                            </tr>
+                        ))
                     }
                 </tbody>
             </table>

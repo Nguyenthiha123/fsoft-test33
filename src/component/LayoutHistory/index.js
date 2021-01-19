@@ -10,8 +10,8 @@ const LayoutHistory = props => {
         <div className='container'>
             <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a style={{ position: 'relative', left: '400px', color: "#495057" }} className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Register</a>
-                    <a style={{ color: "#495057", position: 'relative', left: '400px' }} className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Recognize</a>
+                    <a style={{ position: 'relative', left: '470px', color: "#495057" }} className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Register</a>
+                    <a style={{ color: "#495057", position: 'relative', left: '470px' }} className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Recognize</a>
                 </div>
             </nav>
             <div className="tab-content" style={{ marginTop: '20px' }} id="nav-tabContent">

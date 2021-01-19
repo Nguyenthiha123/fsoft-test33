@@ -30,10 +30,10 @@ const Routers = props => {
                         <LayoutHistory />
                     </Route>
 
-                    {/*
+
                     <Route path="/checkvoice" exact>
                         <CheckVoice />
-                    </Route> */}
+                    </Route>
                 </Switch>
             </Router>
         </div>

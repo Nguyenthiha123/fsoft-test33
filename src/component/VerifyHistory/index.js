@@ -132,9 +132,7 @@ const VerifyHistory = props => {
             <form style={form} onSubmit={handleSubmit(onSubmit)}>
                 <h1 style={h1} className="text-dark">Verify History</h1>
                 <div style={align} className="form-row align-items-center">
-
                     <div className="" style={{ 'width': '900px', marginTop: '20px', 'display': 'flex', 'alignItems': 'flex-end', 'justifyContent': 'space-around' }}>
-
                         <div className="form-group" style={{ textAlign: 'left' }}>
                             <label htmlFor="formFile">Authen Key</label>
                             <input name='key' type="text" className="form-control" ref={register} />
